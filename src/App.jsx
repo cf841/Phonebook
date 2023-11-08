@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
 import Persons from './components/Persons'
-import axios from 'axios'
 import Notification  from './components/Error'
 import nameService from './services/names'
 import PeopleForm from './components/PeopleForm'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', id:1, number: "01010101010"}
-  ]) 
+  const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -16,6 +13,8 @@ const App = () => {
   useEffect(() => {
     nameService.getAll().then(response => {
       setPersons(response.data)
+    }).catch((error) => {
+      console.error(error)
     })
   }, [])
 
